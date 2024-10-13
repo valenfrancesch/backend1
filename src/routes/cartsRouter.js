@@ -6,7 +6,7 @@ export const router = Router()
 
 CartManager.setPath("data/products.json")
 
-router.post("/", async(req, res) => { //DONE
+router.post("/", async(req, res) => { 
     let {products} = req.body
     try {
         let carts=await CartManager.addCart(products)
@@ -17,7 +17,7 @@ router.post("/", async(req, res) => { //DONE
     }
 })
 
-router.get("/:cid", async(req, res) => { //DONE
+router.get("/:cid", async(req, res) => { 
     let {cid} = req.params
     cid = Number(cid)
     if(isNaN(cid)){
@@ -33,7 +33,7 @@ router.get("/:cid", async(req, res) => { //DONE
     }
 })
 
-router.post("/:cid/product/:pid", async(req, res) => { //DONE
+router.post("/:cid/product/:pid", async(req, res) => { 
     let {cid, pid} = req.params
     cid = Number(cid)
     if(isNaN(cid)){

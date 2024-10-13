@@ -6,7 +6,7 @@ export const router = Router()
 
 ProductManager.setPath("data/products.json")
 
-router.get("/", async (req, res) => { //DONE
+router.get("/", async (req, res) => { 
     try {
         let products=await ProductManager.getProducts()
     
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => { //DONE
     }
 })
 
-router.get("/:pid", async (req, res) => { //DONE
+router.get("/:pid", async (req, res) => { 
     let {pid} = req.params
     pid = Number(pid)
     if(isNaN(pid)){
@@ -35,7 +35,7 @@ router.get("/:pid", async (req, res) => { //DONE
     }
 })
 
-router.post("/", async (req, res) => { //DONE
+router.post("/", async (req, res) => { 
     let {title, description, code, price, status, stock, category, thumbnails} = req.body
     try {
         let products=await ProductManager.getProducts()
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => { //DONE
     }
 })
 
-router.put("/:pid", async (req, res)=>{ //DONE
+router.put("/:pid", async (req, res)=>{ 
     let {pid} = req.params
     pid = Number(pid)
     if(isNaN(pid)){
