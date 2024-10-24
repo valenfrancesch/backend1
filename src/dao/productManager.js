@@ -18,12 +18,12 @@ export class ProductManager {
 
         if (title === null || description === null || price === null || thumbnail === null || code === null || stock === null || category === null || status === null) {
             console.log("Por favor, complete todos los campos")
-            return;
+            return null;
         }
 
         if (products.find(pr => pr.code == code)) {
             console.log("El código de producto ya existe. Intente con otro")
-            return;
+            return null;
         }
 
         let id = 1
@@ -53,7 +53,7 @@ export class ProductManager {
 
         if (productIndex < 0) {
             console.log("Product not found")
-            return;
+            return null;
         }
 
         // Update the product fields
@@ -85,7 +85,7 @@ export class ProductManager {
         let product = products.find(e => e.id == id)
         if (!product) {
             console.log("Not found")
-            return;
+            return null;
         }
         return product
     }
@@ -94,6 +94,11 @@ export class ProductManager {
         let products = await this.getProducts()
 
         const productIndex = products.findIndex(product => product.id === id);
+        if(productIndex < 0){
+            console.log("Product not found")
+            return null;
+        }
+        
         const deletedProduct = products.splice(productIndex, 1); 
 
         await this.#saveFile(JSON.stringify(products, null, 5));

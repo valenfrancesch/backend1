@@ -44,23 +44,23 @@ export class CartManager{
         let carts = await this.getCarts()
         let cart = carts.find(e => e.id == id)
         if (!cart) {
-            console.log("Not found")
-            return;
+            console.log("Cart does not exist")
+            return null;
         }
         return cart
     }
 
     static async addProductToCart(cid, pid){
-        let products = ProductManager.getProducts();
+        let products = await ProductManager.getProducts();
         if(!products.find(p=>p.id==pid)){
             console.log("pid does not exist in DB")
-            return;
+            return null;
         }
         let carts = await this.getCarts()
         let cartIndex = carts.findIndex(c => c.id == cid);
         if (cartIndex < 0) {
             console.log("cart not found")
-            return;
+            return null;
         }
         let cart = carts[cartIndex]
         const productIndex = cart.products.findIndex(pr => pr.product == pid);

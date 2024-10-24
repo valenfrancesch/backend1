@@ -26,7 +26,11 @@ router.get("/:cid", async(req, res) => {
     }
     try{
         let cart=await CartManager.getCartById(cid)
+        
         res.setHeader('Content-Type','application/json');
+        if(!cart){
+            return res.status(404).json({error:"The cart does not exist in DB"});
+        }
         return res.status(200).json({cart});
     }catch(error){
         processError(res, error)
@@ -48,6 +52,9 @@ router.post("/:cid/product/:pid", async(req, res) => {
     try{
         let cart=await CartManager.addProductToCart(cid, pid)
         res.setHeader('Content-Type','application/json');
+        if(!cart){
+            return res.status(404).json({error: "Product or cart does not exist"});
+        } 
         return res.status(200).json({cart});
     }catch(error){
         processError(res, error)
