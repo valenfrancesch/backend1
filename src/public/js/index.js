@@ -47,7 +47,7 @@ socket.on('newProduct', data => {
     card.innerHTML = `<p><strong>${title}</strong><i>$${price}</i></p>
         <p>Categoría: ${category}</p>
         <p>Código: ${code}</p>
-        <p>Stock: ${code}</p>
+        <p>Stock: ${stock}</p>
         <p>Status: ${status}</p>
         <p>Descripción: ${description}</p>
         <button class="deleteBtn" style="background-color:red; color:white;" data-id="${id}">Eliminar producto</button>`

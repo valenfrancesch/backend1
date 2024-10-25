@@ -1,11 +1,13 @@
 [
      {
-          "id": 5,
-          "title": "Ejemplo 5",
-          "description": "hola",
-          "price": 12435,
+          "id": 1,
+          "title": "Producto de ejemplo",
+          "description": "Producto de ejemplo número 1\n",
+          "price": 10000,
+          "status": "available",
+          "category": "ejemplos",
           "thumbnail": [],
-          "code": "11",
-          "stock": 12
+          "code": "ej-1",
+          "stock": 100
      }
 ]

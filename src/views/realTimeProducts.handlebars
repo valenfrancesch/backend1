@@ -31,10 +31,10 @@
     <div id="productsContainer">
         {{#each products}}
         <div class="product-card" data-id="{{id}}">
-            <p><strong>{{title}}</strong> <i>${{price}}</i></p>
+            <p><strong>{{title}}</strong> <i> ${{price}}</i></p>
             <p>Categoría: {{category}}</p>
             <p>Código: {{code}}</p>
-            <p>Stock: {{code}}</p>
+            <p>Stock: {{stock}}</p>
             <p>Status: {{status}}</p>
             <p>Descripción: {{description}}</p>
             <button class="deleteBtn" style="background-color:red; color:white;" data-id="{{id}}">Eliminar

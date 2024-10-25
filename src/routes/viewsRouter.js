@@ -4,6 +4,11 @@ import { ProductManager } from "../dao/productManager.js";
 export const router = Router()
 
 //Vistas
+router.get("/", async (req, res) => {
+    let products = await ProductManager.getProducts()
+    res.render("index", { products, style: "style.css" })
+})
+
 router.get("/products", async (req, res) => {
     let products = await ProductManager.getProducts()
     res.render("index", { products, style: "style.css" })

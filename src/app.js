@@ -28,7 +28,6 @@ app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
 app.use("", viewsRouter)
 
-
 const server = app.listen(PORT, () => {
     console.log(`Server escuchando en puerto ${PORT}`);
 });
@@ -38,11 +37,7 @@ const socketServer = new Server(server)
 socketServer.on('connection', socket => {
     console.log("Nuevo cliente conectado")
 
-    const emitAllProducts = async () => {
-        let products = await ProductManager.getProducts()
-        socket.emit("products", { products })
-    }
-
+    //Cuando llega para añadir un nuevo producto
     socket.on('addProduct', async productData => {
         console.log("llega la peticion nuevo producto")
         let { title, description, code, price, status, stock, category, thumbnails } = productData;
@@ -59,6 +54,7 @@ socketServer.on('connection', socket => {
         }
     });
 
+    //Cuando llega para eliminar un producto
     socket.on('deleteProduct', async productData => {
         let { pid } = productData
         console.log(pid)
