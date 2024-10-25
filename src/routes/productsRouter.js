@@ -72,7 +72,7 @@ router.put("/:pid", async (req, res) => {
     }
 })
 
-router.delete("/:pid", async (req, res) => { //DONE
+router.delete("/:pid", async (req, res) => { 
     let { pid } = req.params
     pid = Number(pid)
     if (isNaN(pid)) {

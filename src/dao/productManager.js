@@ -36,6 +36,8 @@ export class ProductManager {
             title,
             description,
             price,
+            status,
+            category,
             thumbnail,
             code,
             stock
@@ -93,7 +95,7 @@ export class ProductManager {
     static async deleteProduct(id){
         let products = await this.getProducts()
 
-        const productIndex = products.findIndex(product => product.id === id);
+        const productIndex = products.findIndex(product => product.id == id);
         if(productIndex < 0){
             console.log("Product not found")
             return null;
