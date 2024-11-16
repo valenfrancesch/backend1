@@ -39,18 +39,18 @@ deleteButtons.forEach(button => {
 socket.on('newProduct', data => {
     console.log("Cliente: llego nuevo producto")
     console.log(data)
-    let { id, title, description, code, price, status, stock, category, thumbnails } = data.newProduct
+    let { _id, title, description, code, price, status, stock, category, thumbnails } = data.newProduct
     let productsContainer = document.getElementById("productsContainer");
     let card = document.createElement("div")
     card.classList.add("product-card");
-    card.setAttribute("data-id", id);
+    card.setAttribute("data-id", _id);
     card.innerHTML = `<p><strong>${title}</strong><i>$${price}</i></p>
         <p>Categoría: ${category}</p>
         <p>Código: ${code}</p>
         <p>Stock: ${stock}</p>
         <p>Status: ${status}</p>
         <p>Descripción: ${description}</p>
-        <button class="deleteBtn" style="background-color:red; color:white;" data-id="${id}">Eliminar producto</button>`
+        <button class="deleteBtn" style="background-color:red; color:white;" data-id="${_id}">Eliminar producto</button>`
 
     const deleteButton = card.querySelector('.deleteBtn');
 
@@ -60,12 +60,11 @@ socket.on('newProduct', data => {
     });
 
     productsContainer.append(card)
-
 })
 
-socket.on('productDeleted', ({ id }) => {
-    console.log(id)
-    const productCard = document.querySelector(`.product-card[data-id="${id}"]`);
+socket.on('productDeleted', ({ _id }) => {
+    console.log(_id)
+    const productCard = document.querySelector(`.product-card[data-id="${_id}"]`);
     if (productCard) {
         productCard.remove();
     }

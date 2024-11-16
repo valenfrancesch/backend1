@@ -1,32 +1,35 @@
 import { Router } from "express";
 import { ProductManager } from "../dao/productManager.js";
 import { processError } from "../utils.js";
+import { ProductManagerMongo } from "../dao/productManagerMongo.js";
 
 export const router = Router()
 
-ProductManager.setPath("data/products.json")
-
 router.get("/", async (req, res) => {
+    let { limit, page, sort, query } = req.query;
+
+    limit = Number(limit) || 10;
+    page = Number(page) || 1;
+    sort = sort === "asc" ? 1 : sort === "desc" ? -1 : null;
+
     try {
-        let products = await ProductManager.getProducts()
+        const response = await ProductManagerMongo.getProducts(limit, page, sort, query);
+        response = {
+            products: response.docs,
+            ...response
+        };
 
         res.setHeader('Content-Type', 'application/json');
-        return res.status(200).json({ products });
+        return res.status(200).json(response);
     } catch (error) {
-        processError(res, error)
+        processError(res, error);
     }
-})
+});
 
 router.get("/:pid", async (req, res) => {
-    let { pid } = req.params
-    pid = Number(pid)
-    if (isNaN(pid)) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `id must be a number` })
-    }
-
+    let {pid} = req.params
     try {
-        let product = await ProductManager.getProductById(pid)
+        let product = await ProductManagerMongo.getProductById(pid)
         if (!product) {
             return res.status(404).json({ error: "Product does not exist in DB" });
         }
@@ -40,7 +43,7 @@ router.get("/:pid", async (req, res) => {
 router.post("/", async (req, res) => {
     let { title, description, code, price, status, stock, category, thumbnails } = req.body
     try {
-        let newProduct = await ProductManager.addProduct(title, description, code, price, status, stock, category, thumbnails);
+        let newProduct = await ProductManagerMongo.addProduct(title, description, code, price, status, stock, category, thumbnails);
         res.setHeader('Content-Type', 'application/json');
         if (!newProduct) {
             return res.status(400).json({ error: "Error in params" });
@@ -53,15 +56,10 @@ router.post("/", async (req, res) => {
 
 router.put("/:pid", async (req, res) => {
     let { pid } = req.params
-    pid = Number(pid)
-    if (isNaN(pid)) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `id must be a number` })
-    }
 
     let { title, description, code, price, status, stock, category, thumbnails } = req.body
     try {
-        let updatedProduct = await ProductManager.updateProduct(pid, title, description, code, price, status, stock, category, thumbnails);
+        let updatedProduct = await ProductManagerMongo.updateProduct(pid, title, description, code, price, status, stock, category, thumbnails);
         res.setHeader('Content-Type', 'application/json');
         if (!updatedProduct) {
             return res.status(404).json({ error: `${id} does not exist in DB` })
@@ -74,13 +72,9 @@ router.put("/:pid", async (req, res) => {
 
 router.delete("/:pid", async (req, res) => { 
     let { pid } = req.params
-    pid = Number(pid)
-    if (isNaN(pid)) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({ error: `id must be a number` })
-    }
+
     try {
-        let deletedProduct = await ProductManager.deleteProduct(pid);
+        let deletedProduct = await ProductManagerMongo.deleteProduct(pid);
         res.setHeader('Content-Type', 'application/json');
 
         if (!deletedProduct) {

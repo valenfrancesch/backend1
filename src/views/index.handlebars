@@ -1,13 +1,36 @@
 <div>
+      <a href="#" id="carritoLink">Ver carrito</a>
+        </br>
     <h1>Productos disponibles</h1>
     {{#each products}}
-        <div class="product-card">
-            <p><strong>{{title}}</strong> <i>${{price}}</i></p>
-            <p>Categoría: {{category}}</p>
-            <p>Código: {{code}}</p>
-            <p>Stock: {{code}}</p>
-            <p>Status: {{status}}</p>
-            <p>Descripción: {{description}}</p>
-        </div>
+    <div class="product-card">
+        <p><strong>{{title}}</strong> <i>${{price}}</i></p>
+        <p>Categoría: {{category}}</p>
+        <p>Código: {{code}}</p>
+        <p>Stock: {{code}}</p>
+        <p>Status: {{status}}</p>
+        <p>Descripción: {{description}}</p>
+        <button class="deleteBtn" style="background-color:green; color:white;" data-id="{{id}}">Agregar
+            producto al carrito</button>
+    </div>
     {{/each}}
+
+    <br>
+    <a href="/products/?page=1">Pág.1</a>
+
+    {{#if hasPrevPage}}
+    <a href="/products/?page={{prevPage}}">Prev.Pág.</a>
+    {{else}}
+    <a href="/products/?page={{prevPage}}" class="disabled">Prev.Pág.</a>
+    {{/if}}
+
+    {{#if hasNextPage}}
+    <a href="/products/?page={{nextPage}}">Next.Pág.</a>
+    {{else}}
+    <a href="/products/?page={{nextPage}}" class="disabled">Next.Pág.</a>
+    {{/if}}
+
+    <a href="/products/?page={{totalPages}}">Ult.Pág.</a>
 </div>
+
+<script src="/js/indexView.js"></script>

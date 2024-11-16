@@ -21,3 +21,9 @@ button{
     display: flex;
     flex-wrap: wrap;
 }
+
+.disabled {
+    pointer-events: none;
+    color: gray;
+    text-decoration: none;
+}

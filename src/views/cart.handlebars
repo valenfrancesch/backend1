@@ -1,0 +1,16 @@
+<div>
+    <h1>Tu carrito de compras</h1>
+    {{#each products}}
+    <div class="product-card">
+        <p><strong>{{product.title}}</strong> <i>${{product.price}}</i></p>
+        <p>Descripción: {{prodcut.description}}</p>
+        <p>Cantidad: {{quantity}}</p>
+        <button class="deleteBtn" style="background-color:red; color:white;" data-id="{{_id}}">Eliminar
+            producto del carrito</button>
+    </div>
+    {{/each}}
+
+    <a href="/products">Seguir comprando</a>
+</div>
+
+<script src="/js/cartView.js"></script>

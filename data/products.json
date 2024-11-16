@@ -9,5 +9,16 @@
           "thumbnail": [],
           "code": "ej-1",
           "stock": 100
+     },
+     {
+          "id": 2,
+          "title": "Producto 1",
+          "description": "producto de prueba",
+          "price": 10000,
+          "status": "available",
+          "category": "ejemplos",
+          "thumbnail": [],
+          "code": "ABCD",
+          "stock": 10
      }
 ]
