@@ -48,7 +48,7 @@ export class ProductManagerMongo {
     }
 
     static async getProducts(limit = 10, page = 1, sort = null, query = null) {
-        const filter = query ? { $or: [{ category: query }, { availability: query }] } : {}; // Filtro por categoría o disponibilidad.
+        const filter = query ? { $or: [{ category: query }, { status: query }] } : {}; // Filtro por categoría o disponibilidad.
         const options = {
             limit: limit,
             page: page,
