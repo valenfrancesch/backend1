@@ -48,8 +48,8 @@ export class CartManagerMongo{
             console.log("cart not found");
             return null;
         }
-        console.log(pid)
-        cart.products = cart.products.filter(pr => pr._id != pid);
+        cart.products = cart.products.filter(pr => pr.product._id.toString() != pid);
+        console.log(cart)
         return await cartModel.findByIdAndUpdate(cid, cart, { new: true });
     }
 

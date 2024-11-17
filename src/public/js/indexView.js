@@ -10,9 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 let response;
                 if (cartId) {
-                    response = await fetch(`api/carts/${cartId}/product/${productId}`, {
+                    response = await fetch(`http://localhost:8080/api/carts/${cartId}/product/${productId}`, {
                         method: 'POST',
                     });
+                    if(response.ok){
+                        alert("Producto agregado al carrito exitosamente.")
+                    }
                 } else {
                     response = await fetch('api/carts/', {
                         method: 'POST',
@@ -27,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (response.ok) {
                         const data = await response.json();
                         sessionStorage.setItem('cid', data.carts._id);
-                        console.log(data)
+                        alert("Producto agregado al carrito exitosamente.")
                     }
                 }
 
@@ -43,10 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const carritoLink = document.getElementById('carritoLink');
     const cartId = sessionStorage.getItem('cid'); 
-
     if (cartId) {
-        carritoLink.href = `/carts/${cartId}`; // Actualiza el href dinámicamente
+        carritoLink.href = `/carts/${cartId}`; 
     } else {
-        carritoLink.href = '/nocart'; // Opción alternativa si no existe cartId
+        carritoLink.href = '/nocart'; //si no existe cartId
     }
 });

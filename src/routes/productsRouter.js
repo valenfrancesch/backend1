@@ -14,10 +14,6 @@ router.get("/", async (req, res) => {
 
     try {
         const response = await ProductManagerMongo.getProducts(limit, page, sort, query);
-        response = {
-            products: response.docs,
-            ...response
-        };
 
         res.setHeader('Content-Type', 'application/json');
         return res.status(200).json(response);

@@ -59,7 +59,7 @@ router.delete("/:cid/products/:pid", async (req, res) => {
     }
 })
 
-router.put("/:cid ", async(req, res)=>{
+router.put("/:cid", async(req, res)=>{
     let {cid} = req.params
     let {products} = req.body
     res.setHeader('Content-Type','application/json');

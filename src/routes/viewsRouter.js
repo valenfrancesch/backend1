@@ -8,10 +8,19 @@ export const router = Router()
 //Vistas
 router.get("/", async (req, res) => {
     let {page, limit} = req.query
-    
-    let {products, totalPages} = await ProductManagerMongo.getProducts()
-    console.log(products)
-    res.render("index", { products, style: "style.css" })
+    page=Number(page)
+    limit=Number(limit)
+    if(isNaN(page)) page=1
+    if(isNaN(limit))limit=10
+
+    let {payload, totalPages, hasNextPage, hasPrevPage, nextPage, prevPage} = await ProductManagerMongo.getProducts(limit, page)
+    res.render("index", { products:payload, 
+        totalPages, 
+        hasNextPage, 
+        hasPrevPage, 
+        nextPage, 
+        prevPage,
+        style: "style.css" })
 })
 
 router.get("/products", async (req, res) => {
@@ -21,9 +30,8 @@ router.get("/products", async (req, res) => {
     if(isNaN(page)) page=1
     if(isNaN(limit))limit=10
 
-    let {products, totalPages, hasNextPage, hasPrevPage, nextPage, prevPage} = await ProductManagerMongo.getProducts(limit, page)
-    console.log(products)
-    res.render("index", { products, 
+    let {payload, totalPages, hasNextPage, hasPrevPage, nextPage, prevPage} = await ProductManagerMongo.getProducts(limit, page)
+    res.render("index", { products:payload, 
         totalPages, 
         hasNextPage, 
         hasPrevPage, 
